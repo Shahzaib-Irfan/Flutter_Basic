@@ -21,9 +21,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/add_product': (context) => AddProductPage(),
         '/view_product': (context) => ViewProductsPage(),
-        // '/update_product': (context) => UpdateProductPage(
-        //       product: {'name': 'Hp', 'description': 'hhhh', 'price': 8888},
-        //     ),
       },
     );
   }

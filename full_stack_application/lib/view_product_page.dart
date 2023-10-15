@@ -24,6 +24,24 @@ class _ViewProductsPageState extends State<ViewProductsPage> {
     }
   }
 
+  Future<void> deleteProduct(String id) async {
+    final response = await http.delete(
+      Uri.parse('http://localhost:3005/productApi/products/deleteProduct'),
+      body: jsonEncode({
+        'id': id,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        products = jsonDecode(response.body);
+      });
+    } else {
+      // Handle error - display an error message or do something else.
+    }
+  }
+
   @override
   void initState() {
     fetchProducts();
@@ -51,7 +69,7 @@ class _ViewProductsPageState extends State<ViewProductsPage> {
         itemCount: products.length,
         itemBuilder: (context, index) {
           return Card(
-            margin: EdgeInsets.all(8.0), // Add margin to the card
+            margin: EdgeInsets.all(8.0), // Add margin to the entire Card
             child: ListTile(
               title: Text(products[index]['name']),
               subtitle: Text(products[index]['description']),
@@ -70,7 +88,7 @@ class _ViewProductsPageState extends State<ViewProductsPage> {
                       IconButton(
                         icon: const Icon(Icons.delete),
                         tooltip: 'Delete',
-                        onPressed: () => {},
+                        onPressed: () => deleteProduct(products[index]['_id']),
                       ),
                     ],
                   ),
