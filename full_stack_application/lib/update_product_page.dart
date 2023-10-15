@@ -16,9 +16,11 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
 
   Future<void> updateProduct() async {
     final response = await http.put(
-      Uri.parse(
-          'http://your-backend-api.com/products/${widget.product['_id']}'),
-      body: jsonEncode({'price': double.parse(priceController.text)}),
+      Uri.parse('http://localhost:3005/productApi/products/updateProduct'),
+      body: jsonEncode({
+        'id': widget.product['_id'],
+        'price': double.parse(priceController.text)
+      }),
       headers: {'Content-Type': 'application/json'},
     );
 
